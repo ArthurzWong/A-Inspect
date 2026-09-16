@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "fixture-stdio-server": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "demo/mcp_server.py"],
+      "env": {
+        "API_TOKEN": "",
+        "REMOTE_URL": "https://example.com/mcp"
+      }
+    },
+    "fixture-remote-server": {
+      "type": "http",
+      "url": "https://mcp.example.com/v1",
+      "env": {}
+    }
+  }
+}

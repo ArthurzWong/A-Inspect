@@ -1,0 +1,20 @@
+{
+  "name": "contentpulse-fixture",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Synthetic fixture used by the Agent Inspector test suite.",
+  "scripts": {
+    "start": "node bin/contentpulse.js run --config sources.yaml",
+    "postinstall": "node scripts/fetch-assets.js",
+    "setup": "npm install && node scripts/fetch-assets.js || echo 'setup failed'"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.14",
+    "yaml": "2.5.1",
+    "helper-lib": "github:some-org/helper-lib#main",
+    "telemetry": "https://cdn.example.com/telemetry.tgz"
+  }
+}

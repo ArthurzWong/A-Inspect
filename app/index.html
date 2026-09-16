@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agent Inspector — pre-flight inspector &amp; runtime security gateway</title>
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">Agent&nbsp;Inspector</span>
+    <span class="brand-sub" id="version">v0.1.0</span>
+  </div>
+  <div class="topbar-meta">
+    <span class="pill pill-mode" id="mode-pill" title="Inspection is static. Nothing is executed.">INSPECT</span>
+    <span class="pill" id="policy-pill">policy: workspace-safe-v1</span>
+    <span class="pill" id="audit-pill">audit: —</span>
+  </div>
+</header>
+
+<nav class="screens" role="tablist" aria-label="Screens">
+  <button class="screen-tab is-active" role="tab" aria-selected="true" data-screen="dashboard">
+    <span class="step">1</span> Dashboard / Inspect
+  </button>
+  <button class="screen-tab" role="tab" aria-selected="false" data-screen="trace">
+    <span class="step">2</span> Action Trace <span class="count" id="count-trace"></span>
+  </button>
+  <button class="screen-tab" role="tab" aria-selected="false" data-screen="blast">
+    <span class="step">3</span> Blast Radius <span class="count" id="count-blast"></span>
+  </button>
+  <button class="screen-tab" role="tab" aria-selected="false" data-screen="repercussions">
+    <span class="step">4</span> Repercussions <span class="count" id="count-rep"></span>
+  </button>
+  <button class="screen-tab" role="tab" aria-selected="false" data-screen="gate">
+    <span class="step">5</span> Approval Gate <span class="count" id="count-gate"></span>
+  </button>
+</nav>
+
+<main id="main">
+
+<!-- ───────────────────────────── SCREEN 1 ───────────────────────────── -->
+<section class="screen is-active" id="screen-dashboard" role="tabpanel">
+  <div class="hero">
+    <h1>What is your AI agent about to do?</h1>
+    <p class="hero-sub">
+      Paste a command, upload a project, or load an inspection result. The Inspector reads
+      without running: the security boundary is deterministic code, never a model's opinion.
+    </p>
+  </div>
+
+  <div class="card input-card">
+    <div class="input-tabs" role="tablist">
+      <button class="itab is-active" data-input="paste">Paste command</button>
+      <button class="itab" data-input="script">Upload script / files</button>
+      <button class="itab" data-input="project">Upload project folder</button>
+      <button class="itab" data-input="github">GitHub repository</button>
+      <button class="itab" data-input="json">Open report JSON</button>
+      <button class="itab" data-input="fixture">Demo target</button>
+    </div>
+
+    <div class="input-pane is-active" id="pane-paste">
+      <label class="lbl" for="cmd-input">Command line</label>
+      <textarea id="cmd-input" rows="3" spellcheck="false" placeholder="$ bash demo/run-demo.sh"></textarea>
+      <p class="hint">The command is parsed, never executed. Quoting, pipelines and substitutions are all read statically.</p>
+    </div>
+
+    <div class="input-pane" id="pane-script">
+      <label class="lbl" for="file-input">Script or files</label>
+      <input type="file" id="file-input" multiple />
+      <p class="hint">Text files are read as strings for static analysis. Binary and secret-bearing files are skipped.</p>
+    </div>
+
+    <div class="input-pane" id="pane-project">
+      <label class="lbl" for="dir-input">Project directory</label>
+      <input type="file" id="dir-input" webkitdirectory multiple />
+      <p class="hint">Reads the file list you select. <code>node_modules</code>, lockfiles' binaries and real <code>.env</code> files are skipped.</p>
+    </div>
+
+    <div class="input-pane" id="pane-github">
+      <label class="lbl" for="gh-input">Repository</label>
+      <input type="text" id="gh-input" placeholder="snyk/agent-scan" />
+      <p class="hint">
+        Repository fetching is deliberately not done from this page. Instead, this console shows the
+        read-only plan and the exact CLI command. That keeps untrusted content out of the browser session.
+      </p>
+      <div id="gh-plan" class="gh-plan"></div>
+    </div>
+
+    <div class="input-pane" id="pane-json">
+      <label class="lbl" for="json-input">Inspection result (JSON)</label>
+      <input type="file" id="json-input" accept="application/json,.json" />
+      <p class="hint">Produced by <code>npm run inspect -- &lt;path&gt; --format json --out report.json</code>.</p>
+    </div>
+
+    <div class="input-pane" id="pane-fixture">
+      <label class="lbl">Synthetic fixture</label>
+      <p class="hint">
+        An embedded, non-destructive fixture (synthetic ContentPulse-like project). Clearly labelled as a fixture
+        everywhere it appears — it is not a live repository.
+      </p>
+      <button class="btn btn-ghost" id="load-fixture">Load fixture into the inspector</button>
+      <button class="btn btn-ghost" id="load-real">Load real local report (if generated)</button>
+    </div>
+
+    <div class="actions-row">
+      <button class="btn btn-primary" id="inspect-btn">INSPECT</button>
+      <button class="btn btn-secondary" id="sandbox-btn" disabled
+        title="No sandbox provider is configured. Execution is refused, which is the correct fail-closed behaviour.">
+        RUN IN SANDBOX
+      </button>
+      <span class="actions-note" id="actions-note">Static inspection only — no execution on any path.</span>
+    </div>
+    <p class="error" id="input-error" hidden></p>
+  </div>
+
+  <div id="dashboard-result"></div>
+</section>
+
+<!-- ───────────────────────────── SCREEN 2 ───────────────────────────── -->
+<section class="screen" id="screen-trace" role="tabpanel">
+  <div class="screen-head">
+    <h2>Action trace</h2>
+    <p class="screen-sub">Every command and every code-level capability, in one chain. Evidence type is shown per node: observed, inferred, or unknown.</p>
+  </div>
+  <div class="split">
+    <div class="card tree-card">
+      <div class="tree-toolbar">
+        <input type="search" id="trace-filter" placeholder="Filter actions, files, rules…" />
+        <label class="toggle"><input type="checkbox" id="trace-only-risk" /> only flagged</label>
+      </div>
+      <ul class="tree" id="trace-tree"></ul>
+    </div>
+    <div class="card detail-card" id="trace-detail">
+      <p class="empty">Select an action to see its evidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── SCREEN 3 ───────────────────────────── -->
+<section class="screen" id="screen-blast" role="tabpanel">
+  <div class="screen-head">
+    <h2>Blast radius</h2>
+    <p class="screen-sub">What this project can actually affect. Grey means not observed — which is not the same as safe.</p>
+  </div>
+  <div class="split split-blast">
+    <div class="card graph-card">
+      <div id="blast-graph"></div>
+      <div class="legend" id="blast-legend"></div>
+      <p class="note" id="blast-note"></p>
+    </div>
+    <div class="card" id="blast-detail">
+      <p class="empty">Select a category to see the resources behind it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── SCREEN 4 ───────────────────────────── -->
+<section class="screen" id="screen-repercussions" role="tabpanel">
+  <div class="screen-head">
+    <h2>What could happen?</h2>
+    <p class="screen-sub">
+      Capability and intent are reported separately. A finding says what is possible, never that something is malicious.
+    </p>
+  </div>
+  <div id="rep-list" class="rep-list"></div>
+  <div class="card" id="rep-unknowns"></div>
+</section>
+
+<!-- ───────────────────────────── SCREEN 5 ───────────────────────────── -->
+<section class="screen" id="screen-gate" role="tabpanel">
+  <div class="screen-head">
+    <h2>Approval gate</h2>
+    <p class="screen-sub">
+      The gateway evaluates each intercepted action with the same deterministic policy engine used by the CLI.
+      Interception is simulated in this session; the decisions and the audit ledger are real.
+    </p>
+  </div>
+  <div class="gate-grid">
+    <div class="card">
+      <h3>Action requests</h3>
+      <div id="gate-list"></div>
+    </div>
+    <div class="card">
+      <h3>Audit ledger</h3>
+      <div class="audit-toolbar">
+        <button class="btn btn-ghost" id="audit-verify">Verify chain</button>
+        <button class="btn btn-ghost" id="audit-tamper">Simulate tampering (in-memory copy)</button>
+      </div>
+      <p class="verdict" id="audit-verdict"></p>
+      <div class="audit-table-wrap"><table class="audit" id="audit-table"></table></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <span>Agent Inspector v0.1.0 — inspect before execution · control what agents can do · see the blast radius · keep an evidence trail.</span>
+  <span class="footer-note" id="footer-note">Nothing has been executed. Secrets are redacted at the engine boundary.</span>
+</footer>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

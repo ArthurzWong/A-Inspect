@@ -1,0 +1,60 @@
+{
+  "sources": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "content": "name: ci\non: [push]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: some-org/setup-toolchain@main\n      - run: npm install\n      - run: npm test\n"
+    },
+    {
+      "path": "bin/contentpulse.js",
+      "content": "#!/usr/bin/env node\n// FIXTURE — synthetic ContentPulse-like entrypoint.\n// Static analysis target only; the Inspector never executes this file.\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport http from 'node:http';\nimport cron from 'node-cron';\nimport nodemailer from 'nodemailer';\nimport { loadConfig } from '../src/config.js';\nimport { fetchContent } from '../src/http.js';\nimport { openStore } from '../src/store.js';\n\nconst cfg = loadConfig('demo/sources.yaml');\n\n// Reads configuration and credentials from the environment.\nconst smtpHost = process.env.SMTP_HOST;\nconst smtpUser = process.env.SMTP_USER;\nconst smtpPass = process.env.SMTP_PASS;\nconst digestTo = process.env.DIGEST_TO;\n\nasync function deliver(webhookUrl, digest) {\n  const res = await fetch(webhookUrl, {\n    method: 'POST',\n    headers: { 'content-type': 'application/json' },\n    body: JSON.stringify(digest),\n  });\n  return res.status;\n}\n\nasync function sendMail(digest) {\n  const transport = nodemailer.createTransport({\n    host: smtpHost,\n    port: Number(process.env.SMTP_PORT ?? 587),\n    auth: { user: smtpUser, pass: smtpPass },\n  });\n  await transport.sendMail({ from: smtpUser, to: digestTo, subject: 'digest', text: digest });\n}\n\nexport async function runOnce() {\n  const store = openStore(cfg.db);\n  for (const source of cfg.sources) {\n    const body = await fetchContent(source.url);\n    store.put(source.name, body);\n  }\n  fs.writeFileSync(path.join(cfg.output, 'latest.md'), '# digest\\n');\n}\n\nexport function startWatcher() {\n  cron.schedule('0 9 * * *', () => { runOnce(); });\n}\n\nexport function startParserService(port = 8080) {\n  const server = http.createServer((req, res) => { res.end('ok'); });\n  server.listen(port, '127.0.0.1');\n}\n\nstartWatcher();\nrunOnce();\n"
+    },
+    {
+      "path": "demo/fixtures/v1.html",
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <title>Acme Blog — fixture</title>\n</head>\n<body>\n  <h1>Acme Blog</h1>\n  <article class=\"post\">\n    <h2 class=\"post-title\"><a href=\"/posts/hello\">Hello from the fixture</a></h2>\n    <p>Static page served by the demo's local Node server on 127.0.0.1.</p>\n  </article>\n  <div class=\"plan\">\n    <span class=\"price\">RM 49</span>\n  </div>\n</body>\n</html>\n"
+    },
+    {
+      "path": "demo/run-demo.sh",
+      "content": "#!/usr/bin/env bash\n# FIXTURE — synthetic project used by the test suite and the offline demo.\n#\n# This file is a STATIC ANALYSIS TARGET. Agent Inspector reads it; it never runs\n# it. The deletion below is deliberately project-local and fully reproducible,\n# because it is the exact action the product walkthrough points at: the demo's\n# destructiveness is the thing the inspector is supposed to surface.\n#\n# What the inspector says about that line (see tests/demo.test.js):\n#   R001 · filesystem deletion · scope project-local · MODERATE\n#   recommendation: allow project-local deletion, but require approval on first\n#   execution and keep the path inside the workspace.\nset -euo pipefail\n\ncd \"$(dirname \"$0\")/..\"\nPORT=\"${PORT:-8787}\"\n\nmkdir -p demo/site\n\nrm -rf demo/.state\nmkdir -p demo/.state\n\ncp demo/fixtures/v1.html demo/site/index.html\n\nnode demo/serve.mjs demo/site \"$PORT\" &\nSERVER_PID=$!\ntrap 'kill \"$SERVER_PID\" 2>/dev/null || true' EXIT\nsleep 0.8\n\nnode bin/contentpulse.js run --config demo/sources.yaml\nnode bin/contentpulse.js run --config demo/sources.yaml --dry-run\nls -1 demo/.state/out\n"
+    },
+    {
+      "path": "demo/serve.mjs",
+      "content": "import http from 'node:http';\nimport fs from 'node:fs';\nimport path from 'node:path';\n\nconst root = process.argv[2] ?? 'demo/site';\nconst port = Number(process.argv[3] ?? 8787);\n\nconst server = http.createServer((req, res) => {\n  const file = req.url === '/' ? '/index.html' : req.url.split('?')[0];\n  const full = path.join(root, file);\n  if (!fs.existsSync(full)) {\n    res.writeHead(404, { 'content-type': 'text/plain' });\n    res.end('not found');\n    return;\n  }\n  res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });\n  res.end(fs.readFileSync(full, 'utf8'));\n});\n\nserver.listen(port, '127.0.0.1', () => {\n  console.log(`demo site serving ${root} on http://127.0.0.1:${port}/`);\n});\n"
+    },
+    {
+      "path": "demo/sources.yaml",
+      "content": "db: demo/.state/contentpulse.db\noutput: demo/.state/out\nnotify_on_change_only: true\ndelivery:\n  console: true\n  file: true\n  email: false\n  webhook: false\nhttp:\n  respectRobots: false\n  delayMs: 100\nsources:\n  - name: \"Acme Blog — Headlines\"\n    url: \"http://127.0.0.1:8787/\"\n    selector: \"h2.post-title a\"\n    extract: text\n    alert_on_change: true\n"
+    },
+    {
+      "path": "Dockerfile",
+      "content": "FROM node:20-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm install\nRUN curl -fsSL https://example.com/install.sh | sh\nCOPY . .\nUSER root\nCMD [\"node\", \"bin/contentpulse.js\", \"run\", \"--config\", \"sources.yaml\"]\n"
+    },
+    {
+      "path": "mcp.json",
+      "content": "{\n  \"mcpServers\": {\n    \"fixture-stdio-server\": {\n      \"type\": \"stdio\",\n      \"command\": \"uv\",\n      \"args\": [\"run\", \"demo/mcp_server.py\"],\n      \"env\": {\n        \"API_TOKEN\": \"\",\n        \"REMOTE_URL\": \"https://example.com/mcp\"\n      }\n    },\n    \"fixture-remote-server\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.example.com/v1\",\n      \"env\": {}\n    }\n  }\n}\n"
+    },
+    {
+      "path": "package.json",
+      "content": "{\n  \"name\": \"contentpulse-fixture\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"description\": \"Synthetic fixture used by the Agent Inspector test suite.\",\n  \"scripts\": {\n    \"start\": \"node bin/contentpulse.js run --config sources.yaml\",\n    \"postinstall\": \"node scripts/fetch-assets.js\",\n    \"setup\": \"npm install && node scripts/fetch-assets.js || echo 'setup failed'\"\n  },\n  \"dependencies\": {\n    \"cheerio\": \"^1.0.0\",\n    \"node-cron\": \"^3.0.3\",\n    \"nodemailer\": \"^6.9.14\",\n    \"yaml\": \"2.5.1\",\n    \"helper-lib\": \"github:some-org/helper-lib#main\",\n    \"telemetry\": \"https://cdn.example.com/telemetry.tgz\"\n  }\n}\n"
+    },
+    {
+      "path": "requirements.txt",
+      "content": "# Fixture: intentionally unpinned so the supply-chain rule has something to find.\nrequests\nbeautifulsoup4>=4.12\nlxml\ngit+https://github.com/example/scraper-utils.git\n"
+    },
+    {
+      "path": "SKILL.md",
+      "content": "---\nname: digest-reporter\nversion: 0.1.0\ndescription: FIXTURE skill used by the Agent Inspector test suite. Safe content only.\n---\n\n# Digest Reporter (fixture)\n\nThis skill summarizes scraped content into a digest.\n\n## Usage\n\nRun `npm start` and read `.contentpulse/out/latest.md`.\n\n## Notes\n\nThe test suite supplies untrusted-content samples in-process when it needs to\nexercise the prompt-injection detector. This file is deliberately clean, so\nthat a scan of the fixture project reports no injection signal from `SKILL.md`\nitself and the detector is exercised through a controlled oracle instead.\n"
+    },
+    {
+      "path": "src/config.js",
+      "content": "// FIXTURE module — static analysis target.\nimport fs from 'node:fs';\nimport path from 'node:path';\n\nexport function loadConfig(file) {\n  const raw = fs.readFileSync(file, 'utf8');\n  return {\n    db: process.env.CONTENTPULSE_DB ?? '.contentpulse/contentpulse.db',\n    output: process.env.CONTENTPULSE_OUTPUT ?? '.contentpulse/out',\n    sources: [{ name: 'fixture', url: 'http://127.0.0.1:8787/' }],\n    _raw: raw,\n    _dir: path.dirname(file),\n  };\n}\n"
+    },
+    {
+      "path": "src/http.js",
+      "content": "// FIXTURE module — static analysis target.\nexport async function fetchContent(url) {\n  const res = await fetch(url, { headers: { 'user-agent': 'contentpulse-fixture/0.1' } });\n  if (!res.ok) throw new Error(`HTTP ${res.status}`);\n  return res.text();\n}\n"
+    },
+    {
+      "path": "src/store.js",
+      "content": "// FIXTURE module — static analysis target.\nimport fs from 'node:fs';\nimport path from 'node:path';\n\nexport function openStore(file) {\n  fs.mkdirSync(path.dirname(file), { recursive: true });\n  const state = new Map();\n  return {\n    put(key, value) { state.set(key, value); },\n    get(key) { return state.get(key); },\n    flush() { fs.writeFileSync(file, JSON.stringify([...state.entries()])); },\n  };\n}\n"
+    }
+  ]
+}

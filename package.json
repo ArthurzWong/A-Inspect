@@ -1,0 +1,29 @@
+{
+  "name": "agent-inspector",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent Inspector — pre-flight inspector + runtime security gateway for autonomous AI agents. Deterministic policy outside the model.",
+  "license": "MIT",
+  "bin": {
+    "agent-inspector": "scripts/cli.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node scripts/build-web.mjs && node --test tests/*.test.js",
+    "test:engine": "node --test tests/*.test.js",
+    "inspect": "node scripts/cli.mjs inspect",
+    "gateway": "node scripts/cli.mjs gateway",
+    "adapters": "node scripts/cli.mjs adapters",
+    "policy": "node scripts/cli.mjs policy",
+    "sandbox": "node scripts/cli.mjs sandbox",
+    "build:web": "node scripts/build-web.mjs",
+    "verify:bundle": "node scripts/verify-bundle.mjs",
+    "serve": "node scripts/serve.mjs",
+    "check": "node scripts/cli.mjs inspect fixtures/spec-demo --format text"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

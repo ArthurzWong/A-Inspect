@@ -1,0 +1,5 @@
+# Fixture: intentionally unpinned so the supply-chain rule has something to find.
+requests
+beautifulsoup4>=4.12
+lxml
+git+https://github.com/example/scraper-utils.git

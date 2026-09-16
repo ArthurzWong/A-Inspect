@@ -1,0 +1,17 @@
+db: demo/.state/contentpulse.db
+output: demo/.state/out
+notify_on_change_only: true
+delivery:
+  console: true
+  file: true
+  email: false
+  webhook: false
+http:
+  respectRobots: false
+  delayMs: 100
+sources:
+  - name: "Acme Blog — Headlines"
+    url: "http://127.0.0.1:8787/"
+    selector: "h2.post-title a"
+    extract: text
+    alert_on_change: true
