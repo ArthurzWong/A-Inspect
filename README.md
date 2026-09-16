@@ -77,16 +77,27 @@ dist/agent-inspector.html?load=fixture&screen=blast   # …and open a specific s
 
 ### Deployment
 
-Live at <https://a-inspect-cgua.vercel.app> (Vercel project `a-inspect-cgua`, static, no build step, no backend). The page is a byte-for-byte copy of `dist/agent-inspector.html`; the deployment sets a strict CSP and the usual hardening headers in `vercel.json`.
+Live at <https://a-inspect-cgua.vercel.app> (Vercel project `a-inspect-cgua`). The page is a byte-for-byte copy of `dist/agent-inspector.html`.
+
+The Vercel project is connected to this GitHub repository, so **a push to `main` is a deployment**. Two files at the repository root make that work:
+
+- `vercel.json` — rewrites `/` to `/dist/agent-inspector.html` (and `/fixture-report.json` to the built report), and sets a strict CSP plus the usual hardening headers;
+- `.vercelignore` — restricts the upload to the built console, so the public site is one HTML file and its report rather than the whole repository.
 
 ```bash
-npm test                                        # rebuild the console + 169 tests
+npm test                      # rebuild the console + 169 tests
+git add -A && git commit -m "…" && git push   # deploys
+```
+
+To deploy manually instead (same result, no Git round trip):
+
+```bash
 cp dist/agent-inspector.html ../agent-inspector-vercel/index.html
 cp dist/fixture-report.json  ../agent-inspector-vercel/fixture-report.json
 cd ../agent-inspector-vercel && vercel deploy --prod --yes
 ```
 
-The staging directory holds `index.html`, `fixture-report.json`, `assets/screenshots/`, `vercel.json` and a `README.txt` with the same instructions. `vercel link --project a-inspect-cgua` was run once to associate it with the project.
+The staging directory holds `index.html`, `fixture-report.json`, `assets/screenshots/`, `vercel.json`, a `README.txt` with the same instructions, and is linked to the project via `vercel link --project a-inspect-cgua`.
 
 ### What it looks like
 

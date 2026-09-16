@@ -1,0 +1,22 @@
+# Deploy only the built console.
+#
+# The public site should be exactly one self-contained HTML file plus the
+# inspection report it can load — nothing else. Everything below is source,
+# tests, fixtures or documentation, all of which already live on GitHub.
+#
+# Source: https://github.com/ArthurzWong/A-Inspect
+
+app/
+src/
+tests/
+scripts/
+schema/
+fixtures/
+docs/
+node_modules/
+
+*.md
+.gitignore
+LICENSE
+package.json
+vercel.json
