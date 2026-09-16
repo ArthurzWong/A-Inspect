@@ -64,6 +64,27 @@ npm run verify:bundle  # prove the console runs the same engine as the CLI
 
 **The console** opens straight from disk: `dist/agent-inspector.html` inlines the stylesheet and the entire engine. There is no CDN, no build step for you to run, and no network access. `npm run serve` exists only for development, because ES modules cannot be loaded over `file://`.
 
+It also accepts deep links, which is how the screenshots in `docs/screenshots/` were produced:
+
+```
+dist/agent-inspector.html?load=fixture                # load the synthetic fixture
+dist/agent-inspector.html?load=report                 # load dist/fixture-report.json
+dist/agent-inspector.html?load=fixture&screen=blast   # …and open a specific screen
+```
+`screen` accepts `dashboard`, `trace`, `blast`, `repercussions` or `gate`.
+
+### What it looks like
+
+![Dashboard after inspecting the fixture](docs/screenshots/dashboard.png)
+
+![Blast radius graph](docs/screenshots/blast.png)
+
+![Approval gate with the audit ledger](docs/screenshots/approval-gate.png)
+
+![Action trace](docs/screenshots/trace.png)
+
+![Repercussions](docs/screenshots/repercussions.png)
+
 ---
 
 ## 3. The five screens
@@ -257,7 +278,11 @@ npm run verify:bundle  # proves the browser bundle runs the same engine
 | `demo.test.js` | 13 | fixture end-to-end (destructive-action detection included), downstream module linking, MCP never launched, rule-id contract, and the real sibling `contentpulse` project |
 | `console-boot.test.js` | 6 | the real bundle booted against a DOM stub: render, inspect, fixture, sandbox explanation, ledger verify, tamper detection, approval gate |
 
-**Latest run:** 169 passed, 0 failed. `verify:bundle`: 32/32 checks passed, including "same audit ledger (hash chain)" for four different commands.
+**Latest run:** 169 passed, 0 failed. `verify:bundle`: 35/35 checks passed.
+
+The bundle check verifies the artifact that actually ships — the script **inlined in `dist/agent-inspector.html`** — not just the standalone bundle written next to it. It asserts byte-identity between the two, parses the inlined script, evaluates it without a DOM, and then compares full engine output (including the audit hash chain) against the source engine for four commands. `tests/console-boot.test.js` boots that same inlined script against a DOM stub.
+
+That check exists because of a real bug it caught: the build injected the bundle with a `String.replace` replacement *string*, so every `$$` in the code was interpreted as an escape and collapsed to `$`. `const $$ = …` silently became `const $ = …`, a `SyntaxError` on load, and the console rendered nothing — while every file-based test still passed, because they all read the other copy. The fix was to use replacement functions; the byte-identity and DOM-stub checks now make that class of failure impossible to ship.
 
 ### Inspection of this workspace's real `contentpulse` project
 
@@ -420,14 +445,15 @@ Local OpenClaw documentation informed the adapter: tool policy is the hard stop,
 agent-inspector/
 ├── app/                     console source (index.html, styles.css, app.js)
 ├── dist/                    built single-file console + bundle + fixture report
+├── docs/screenshots/        rendered screenshots of the five screens
 ├── fixtures/spec-demo/      synthetic fixture reproducing the spec's walkthrough
 ├── schema/postgres.sql      durable form of the report records
 ├── scripts/
 │   ├── cli.mjs              inspect · gateway · adapters · policy · sandbox
 │   ├── build-web.mjs        bundles app + engine into one HTML file
-│   ├── verify-bundle.mjs    proves the bundle runs the same engine
+│   ├── verify-bundle.mjs    proves the inlined HTML bundle runs the same engine
 │   ├── serve.mjs            loopback dev server
-│   └── lib/                 read-tree (read-only), github-read (read-only fetch)
+│   └── lib/                 read-tree (read-only) · github-read (read-only fetch) · extract-inline-bundle
 ├── src/engine/              the deterministic engine (no dependencies)
 │   ├── crypto/sha256.js     SHA-256 + HMAC, checked against node:crypto
 │   ├── rules/               commandRules (R001–R011) · contentRules (R012–R013) · supplyChain (R014)
