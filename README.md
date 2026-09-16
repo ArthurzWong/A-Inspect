@@ -4,6 +4,8 @@
 
 > Inspect before execution. Control what agents can do. See the blast radius. Approve with confidence. Keep an evidence trail.
 
+**Live demo:** <https://a-inspect-cgua.vercel.app> — the console, deployed. Add `?load=fixture` to inspect the synthetic fixture immediately, or `&screen=blast` to open on a specific screen. Nothing on that page executes inspected code, and there is no backend.
+
 Agent Inspector sits between a human builder and autonomous agents (OpenClaw, AutoClaw, Claude Code, Codex, Cursor, MCP-enabled agents). It answers one question:
 
 > **What is this agent about to do, what can it affect, what could go wrong, and should I allow it?**
@@ -72,6 +74,19 @@ dist/agent-inspector.html?load=report                 # load dist/fixture-report
 dist/agent-inspector.html?load=fixture&screen=blast   # …and open a specific screen
 ```
 `screen` accepts `dashboard`, `trace`, `blast`, `repercussions` or `gate`.
+
+### Deployment
+
+Live at <https://a-inspect-cgua.vercel.app> (Vercel project `a-inspect-cgua`, static, no build step, no backend). The page is a byte-for-byte copy of `dist/agent-inspector.html`; the deployment sets a strict CSP and the usual hardening headers in `vercel.json`.
+
+```bash
+npm test                                        # rebuild the console + 169 tests
+cp dist/agent-inspector.html ../agent-inspector-vercel/index.html
+cp dist/fixture-report.json  ../agent-inspector-vercel/fixture-report.json
+cd ../agent-inspector-vercel && vercel deploy --prod --yes
+```
+
+The staging directory holds `index.html`, `fixture-report.json`, `assets/screenshots/`, `vercel.json` and a `README.txt` with the same instructions. `vercel link --project a-inspect-cgua` was run once to associate it with the project.
 
 ### What it looks like
 
