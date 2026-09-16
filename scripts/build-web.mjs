@@ -317,12 +317,20 @@ const css = fs.readFileSync(path.join(ROOT, 'app/styles.css'), 'utf8');
 
 // Generate a real inspection of the shipped fixture, so the console can load
 // a genuine engine output rather than a hand-written sample.
+//
+// The clock is fixed on purpose. Audit events are timestamped, and their hashes
+// chain from those timestamps, so a wall clock would make every build produce a
+// different dist/ and make "the deployed artifact equals the committed one"
+// unverifiable. Real inspections (the CLI) still use the real clock.
+const FIXED_CLOCK = '2026-01-01T00:00:00.000Z';
+
 const { sources } = readTree(path.join(ROOT, 'fixtures/spec-demo'));
 const fixtureReport = inspectProject({
   sources,
-  options: { workspace: 'fixture://spec-demo', agentId: 'autoclaw' },
+  options: { workspace: 'fixture://spec-demo', agentId: 'autoclaw', now: FIXED_CLOCK },
 });
 fixtureReport.meta.fixture = 'fixtures/spec-demo (synthetic, non-destructive)';
+fixtureReport.meta.deterministicClock = `${FIXED_CLOCK} — fixed so this build artifact is byte-reproducible`;
 
 const html = compose({ js, css, moduleList, fixtureReport, fixtureSources: sources });
 

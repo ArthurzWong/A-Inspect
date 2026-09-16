@@ -304,7 +304,9 @@ npm run verify:bundle  # proves the browser bundle runs the same engine
 | `demo.test.js` | 13 | fixture end-to-end (destructive-action detection included), downstream module linking, MCP never launched, rule-id contract, and the real sibling `contentpulse` project |
 | `console-boot.test.js` | 6 | the real bundle booted against a DOM stub: render, inspect, fixture, sandbox explanation, ledger verify, tamper detection, approval gate |
 
-**Latest run:** 169 passed, 0 failed. `verify:bundle`: 35/35 checks passed.
+**Latest run:** 169 passed, 0 failed. `verify:bundle`: 36/36 checks passed.
+
+The build is **byte-reproducible**: the shipped fixture report is generated with a fixed clock (`2026-01-01T00:00:00.000Z`) instead of the wall clock, so two consecutive `npm run build:web` runs produce identical bytes — verified with `md5` before committing. Real inspections via the CLI still use the real clock. That property is what makes "the deployed artifact equals the committed artifact" checkable rather than assumed.
 
 The bundle check verifies the artifact that actually ships — the script **inlined in `dist/agent-inspector.html`** — not just the standalone bundle written next to it. It asserts byte-identity between the two, parses the inlined script, evaluates it without a DOM, and then compares full engine output (including the audit hash chain) against the source engine for four commands. `tests/console-boot.test.js` boots that same inlined script against a DOM stub.
 

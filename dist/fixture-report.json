@@ -4,7 +4,7 @@
     "workspaceId": "workspace_local",
     "agentId": "autoclaw",
     "policyId": "workspace-safe-v1",
-    "startedAt": null,
+    "startedAt": "2026-01-01T00:00:00.000Z",
     "generatedBy": "agent-inspector/0.1.0",
     "mode": "INSPECT",
     "executionDisclaimer": "Static inspection only. No uploaded or referenced code was executed. No secrets were read.",
@@ -81,7 +81,8 @@
         "kind": "code"
       }
     ],
-    "fixture": "fixtures/spec-demo (synthetic, non-destructive)"
+    "fixture": "fixtures/spec-demo (synthetic, non-destructive)",
+    "deterministicClock": "2026-01-01T00:00:00.000Z — fixed so this build artifact is byte-reproducible"
   },
   "discovery": {
     "targets": [
@@ -11137,12 +11138,12 @@
     "workspace_id": "workspace_local",
     "agent_id": "autoclaw",
     "genesis": "0000000000000000000000000000000000000000000000000000000000000000",
-    "head": "e25b644628c2ab4e47cbb7c1080532b971d67d23fb04b98087b0fa1650ab19a4",
+    "head": "8a83b2e13890b5c0198941f8661ef11a685ae7c96182e1dc90066cab1aba4b7e",
     "length": 38,
     "events": [
       {
         "seq": 1,
-        "timestamp": "2026-09-16T06:38:04.681Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "INSPECTION_STARTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11154,11 +11155,11 @@
         },
         "payload_hash": "ee75d10570998dd02bd5ef7d0e5cbef6ee5e91ff9c5194c6423b6758f7394e2e",
         "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-        "hash": "6ceba0c248fa495450ce2ceaf74dc92b85b19def3b1c7b5ffffe93079aec5024"
+        "hash": "5851307346a9544e785df7a47f653bb5fa87251386631d52d4ff2b22afa924b1"
       },
       {
         "seq": 2,
-        "timestamp": "2026-09-16T06:38:04.681Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11174,12 +11175,12 @@
           "recommended_control": "Require approval, or deny network and add a domain allowlist."
         },
         "payload_hash": "39fcde3c57796eef14155c52aa64f48b07f9b24c9365551f90d3087620eae1d7",
-        "previous_hash": "6ceba0c248fa495450ce2ceaf74dc92b85b19def3b1c7b5ffffe93079aec5024",
-        "hash": "9d63100c08b7d9d675cac9e61bfda404e6d71994de195e9fc525c3097a7f2722"
+        "previous_hash": "5851307346a9544e785df7a47f653bb5fa87251386631d52d4ff2b22afa924b1",
+        "hash": "ae39c74d8909f7caf37f6b17223e4e117bbd6477c5f436e8f96c6ad49e69664c"
       },
       {
         "seq": 3,
-        "timestamp": "2026-09-16T06:38:04.681Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11195,12 +11196,12 @@
           "recommended_control": "Allow only if bound to loopback. Verify the bind host is not 0.0.0.0."
         },
         "payload_hash": "633b6ec94a052004ba537d547fe06e7eff908f89b0edbf5ac216dcea727917ac",
-        "previous_hash": "9d63100c08b7d9d675cac9e61bfda404e6d71994de195e9fc525c3097a7f2722",
-        "hash": "3479a7e67ef2c79e5ed54b8324e130a5748baabd7450a9c18e36b9c3d1095545"
+        "previous_hash": "ae39c74d8909f7caf37f6b17223e4e117bbd6477c5f436e8f96c6ad49e69664c",
+        "hash": "063d3a49f223a137e28c529f5a93d4965454c389aba780724939d9012ba297c9"
       },
       {
         "seq": 4,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11216,12 +11217,12 @@
           "recommended_control": "Require approval, scope the mailbox credential narrowly, and never expose the value to a model."
         },
         "payload_hash": "d26dd6e64bbe5b248d2324732f8b7a8d842f618bb669388521b6d1f2fe0e858e",
-        "previous_hash": "3479a7e67ef2c79e5ed54b8324e130a5748baabd7450a9c18e36b9c3d1095545",
-        "hash": "6631941fdc8ae5ec2da3b986dfc807f49f48e5bd18030a4b89336d86c5b41570"
+        "previous_hash": "063d3a49f223a137e28c529f5a93d4965454c389aba780724939d9012ba297c9",
+        "hash": "7edc21a8c7673271d462f85046dd3d481d856249dbcbdaaedce87c0d42454302"
       },
       {
         "seq": 5,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11237,12 +11238,12 @@
           "recommended_control": "Pass only the variables the task needs; do not inherit the full environment."
         },
         "payload_hash": "5afb119bc0ab493db66535e48b045a5aa52935a6a0a3ecaa48189bfe98649227",
-        "previous_hash": "6631941fdc8ae5ec2da3b986dfc807f49f48e5bd18030a4b89336d86c5b41570",
-        "hash": "fee602aaf31a86ba4eae2f7264557ef971e0c5def55b48f8f364469e76ecd709"
+        "previous_hash": "7edc21a8c7673271d462f85046dd3d481d856249dbcbdaaedce87c0d42454302",
+        "hash": "42190c232f08ecc75146e4b6bd937a2c5b2f7735ef7e105f459e61e543cea989"
       },
       {
         "seq": 6,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11258,12 +11259,12 @@
           "recommended_control": "Allow with logging, but pair with an explicit stop condition and never run it detached from an approved session."
         },
         "payload_hash": "ae7a1c0207469be9d6ac9b2dfa15d9fba0b424f2ad59ae6964415949cc0863e4",
-        "previous_hash": "fee602aaf31a86ba4eae2f7264557ef971e0c5def55b48f8f364469e76ecd709",
-        "hash": "927dbc5a7b805adbe8e96b0469ca40ebdd4c4ecc3f97986d27a1c11fa63111c5"
+        "previous_hash": "42190c232f08ecc75146e4b6bd937a2c5b2f7735ef7e105f459e61e543cea989",
+        "hash": "b631885dc16d831b186f96ba81638d58fff420d645a3ac8b510030c4a2bc7d9b"
       },
       {
         "seq": 7,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11279,12 +11280,12 @@
           "recommended_control": "Allow only if bound to loopback. Verify the bind host is not 0.0.0.0."
         },
         "payload_hash": "82b8d29fe3c8588342d7dc5b68a2cb5c6ba7a9ab5015561b8ed823c145afc25e",
-        "previous_hash": "927dbc5a7b805adbe8e96b0469ca40ebdd4c4ecc3f97986d27a1c11fa63111c5",
-        "hash": "ddc02bac8645348128ee5af29c68c517874b945df1f9f2ac60eb8082101fa9e7"
+        "previous_hash": "b631885dc16d831b186f96ba81638d58fff420d645a3ac8b510030c4a2bc7d9b",
+        "hash": "c73b08387b6b8b1102be6773798cfde91b415436b87317eda2633ee672a79b0f"
       },
       {
         "seq": 8,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11300,12 +11301,12 @@
           "recommended_control": "Inspect statically. If the server must be started, do it inside a sandbox with no host credentials and no host filesystem, and treat the consent prompt as the last line of defence."
         },
         "payload_hash": "5ba70c2f3768f9f82fa6a6f9c0dabc04dfd16695e33108ff8f238f32fdbf7319",
-        "previous_hash": "ddc02bac8645348128ee5af29c68c517874b945df1f9f2ac60eb8082101fa9e7",
-        "hash": "57db457735468d5148b112ab14e99176b52049a4816ba0f0e0c2fc8a68073db0"
+        "previous_hash": "c73b08387b6b8b1102be6773798cfde91b415436b87317eda2633ee672a79b0f",
+        "hash": "cb2c245e9dd56124d581bf86ad354af4ba3e9710879cf112d6d2e67358dd3b7d"
       },
       {
         "seq": 9,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11321,12 +11322,12 @@
           "recommended_control": "Pass the narrowest possible values and prefer short-lived tokens."
         },
         "payload_hash": "ccf42bf8279991ee0e2aa3cf8c43b1f194bbc963f7afc5905f6bc442dbd06158",
-        "previous_hash": "57db457735468d5148b112ab14e99176b52049a4816ba0f0e0c2fc8a68073db0",
-        "hash": "ceab8d9962dfb049548b36419de0fc2409f5fed3a51380eee4905f6e8e0764f2"
+        "previous_hash": "cb2c245e9dd56124d581bf86ad354af4ba3e9710879cf112d6d2e67358dd3b7d",
+        "hash": "69cbecbe6eb6810dea5fd950fb1af405192ad98ab721b9c66650c24005932e8e"
       },
       {
         "seq": 10,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11342,12 +11343,12 @@
           "recommended_control": "Require an explicit domain allowlist entry and review what the remote server does with inputs."
         },
         "payload_hash": "b8996d5601bf77d0a48106268e2df2f3a299e7220b539a1ab881a7581a15d100",
-        "previous_hash": "ceab8d9962dfb049548b36419de0fc2409f5fed3a51380eee4905f6e8e0764f2",
-        "hash": "83d157f4ced77d72f66de21ef8aea912623b5fc776b45caf8ba0da9962d1403a"
+        "previous_hash": "69cbecbe6eb6810dea5fd950fb1af405192ad98ab721b9c66650c24005932e8e",
+        "hash": "8f4972bd97a478efa75f9f950fc75855f5314b3be4d604407848ad1944fb2f44"
       },
       {
         "seq": 11,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11363,12 +11364,12 @@
           "recommended_control": "Require approval, or deny network and add a domain allowlist."
         },
         "payload_hash": "0383373e8cd02b4775a1bc547dd019854e457c17b7fbdb9d7a80043a7f277ba9",
-        "previous_hash": "83d157f4ced77d72f66de21ef8aea912623b5fc776b45caf8ba0da9962d1403a",
-        "hash": "7dcfdf4c918ebc4dfa3c9c0434d48646a971060f76c558a2e50f8c007ec11b08"
+        "previous_hash": "8f4972bd97a478efa75f9f950fc75855f5314b3be4d604407848ad1944fb2f44",
+        "hash": "b439b8e4b4166c38b02b0b046d564f7757accec8d28e1b558d66842d93c33204"
       },
       {
         "seq": 12,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11384,12 +11385,12 @@
           "recommended_control": "Require approval. Prefer a committed lockfile, install with lifecycle scripts disabled where possible, and pin versions."
         },
         "payload_hash": "d7a2e373fb83667b63d3ae93719393d49352bb7c237b3db0c908399f19650c33",
-        "previous_hash": "7dcfdf4c918ebc4dfa3c9c0434d48646a971060f76c558a2e50f8c007ec11b08",
-        "hash": "70e774cc5685c969d7b44a01b076ef46ac512bed76ee6462f25831659150051b"
+        "previous_hash": "b439b8e4b4166c38b02b0b046d564f7757accec8d28e1b558d66842d93c33204",
+        "hash": "e34b099927cdf10689a90f2e6a50f77cd84be86a743966103497eba51160f6cc"
       },
       {
         "seq": 13,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11405,12 +11406,12 @@
           "recommended_control": "Require approval, or resolve the substitution to a literal before execution."
         },
         "payload_hash": "7b3d83ac43e4793cf0374684941a34629f5be1e03fcf92c9e332204dad234a2a",
-        "previous_hash": "70e774cc5685c969d7b44a01b076ef46ac512bed76ee6462f25831659150051b",
-        "hash": "9fee6edd207fbe9199ce5066c1d2e49239cd346e5d47fcd48f23b53c1ed1aa9f"
+        "previous_hash": "e34b099927cdf10689a90f2e6a50f77cd84be86a743966103497eba51160f6cc",
+        "hash": "24ef2bfb528449da81d3a448f5ecc5b598a251c7d42fedfa18479fff35092eb5"
       },
       {
         "seq": 14,
-        "timestamp": "2026-09-16T06:38:04.682Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11426,12 +11427,12 @@
           "recommended_control": "Allow project-local deletion, but require approval on first execution and keep the path inside the workspace."
         },
         "payload_hash": "1ed47163fbc452e92f4b213e6081597fcb4b56b5bcb753e4cfa9607e81ae1bb1",
-        "previous_hash": "9fee6edd207fbe9199ce5066c1d2e49239cd346e5d47fcd48f23b53c1ed1aa9f",
-        "hash": "43ac69d01ee2cdd49cc8eafd936502d193003295cd62bdcd688d86772a64b1d5"
+        "previous_hash": "24ef2bfb528449da81d3a448f5ecc5b598a251c7d42fedfa18479fff35092eb5",
+        "hash": "4d76485c08ddbde8d7d86c3fda1b650a2f726a3f6da0c73795b0ca7eefec585b"
       },
       {
         "seq": 15,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11447,12 +11448,12 @@
           "recommended_control": "Review the entrypoint, then allow. Keep the surrounding policy (filesystem, network, credentials) in force — the program inherits it."
         },
         "payload_hash": "59f31c1eea5dabf108349ceeeccebaacf8ca0f0c8ad9128d9d10a5addaea0ccf",
-        "previous_hash": "43ac69d01ee2cdd49cc8eafd936502d193003295cd62bdcd688d86772a64b1d5",
-        "hash": "5585c66910551f733861bf5a4ee4fdb4f1cc0e3f9d0fe4fa238ac2e3f5a42458"
+        "previous_hash": "4d76485c08ddbde8d7d86c3fda1b650a2f726a3f6da0c73795b0ca7eefec585b",
+        "hash": "482a969230a7ea4d1fccc07be8678a8386fa8b24caf633b91e74224536866a05"
       },
       {
         "seq": 16,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11468,12 +11469,12 @@
           "recommended_control": "Allow, but pair every background job with an explicit stop/cleanup step."
         },
         "payload_hash": "4fad155112fe7788040e6efb99647ed8e254ad23a63c12f9e786225f1179a9b0",
-        "previous_hash": "5585c66910551f733861bf5a4ee4fdb4f1cc0e3f9d0fe4fa238ac2e3f5a42458",
-        "hash": "3386f80195c3e2dba785ded21bb0d0cebfc980b3606aadf4049bfc28672baf5d"
+        "previous_hash": "482a969230a7ea4d1fccc07be8678a8386fa8b24caf633b91e74224536866a05",
+        "hash": "7a0ffa80bc62666eb71e0a558d105285c0711fd4393801b118ac2e83666c2ade"
       },
       {
         "seq": 17,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11489,12 +11490,12 @@
           "recommended_control": "Review the entrypoint, then allow. Keep the surrounding policy (filesystem, network, credentials) in force — the program inherits it."
         },
         "payload_hash": "144c4c7ac0eee1e3b82d1d42cc74c17b37c12edddf594b5445fba5c8e8f63a97",
-        "previous_hash": "3386f80195c3e2dba785ded21bb0d0cebfc980b3606aadf4049bfc28672baf5d",
-        "hash": "c1cd0b9b6d4abc015d4bad1114208597eb69a5bcb5b54db4161977eeea50e1d9"
+        "previous_hash": "7a0ffa80bc62666eb71e0a558d105285c0711fd4393801b118ac2e83666c2ade",
+        "hash": "c294d60476ebf1d3999d35e1c463af2e3b7c88f845688edf5cc111ca879559b4"
       },
       {
         "seq": 18,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11510,12 +11511,12 @@
           "recommended_control": "Review the entrypoint, then allow. Keep the surrounding policy (filesystem, network, credentials) in force — the program inherits it."
         },
         "payload_hash": "144c4c7ac0eee1e3b82d1d42cc74c17b37c12edddf594b5445fba5c8e8f63a97",
-        "previous_hash": "c1cd0b9b6d4abc015d4bad1114208597eb69a5bcb5b54db4161977eeea50e1d9",
-        "hash": "e22c38f78534df2ea0a5edd935642bf2fdc39b1c36c4200cd9d8f2a23102bea5"
+        "previous_hash": "c294d60476ebf1d3999d35e1c463af2e3b7c88f845688edf5cc111ca879559b4",
+        "hash": "7113634666d55225a2d1aa748fa75a9f09819b99c75b0b9f05c5b2533d66af13"
       },
       {
         "seq": 19,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11531,12 +11532,12 @@
           "recommended_control": "Require approval. Prefer a committed lockfile, install with lifecycle scripts disabled where possible, and pin versions."
         },
         "payload_hash": "d7a2e373fb83667b63d3ae93719393d49352bb7c237b3db0c908399f19650c33",
-        "previous_hash": "e22c38f78534df2ea0a5edd935642bf2fdc39b1c36c4200cd9d8f2a23102bea5",
-        "hash": "b75f2d193c8c2e9066e8c52510d34be95a8d526a33efb8bbe8e2fb11ff9293f2"
+        "previous_hash": "7113634666d55225a2d1aa748fa75a9f09819b99c75b0b9f05c5b2533d66af13",
+        "hash": "4730b5a5929593327ecdf4404f884ff9e7267c1bc7d2011f8097dd3a0f55e688"
       },
       {
         "seq": 20,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11552,12 +11553,12 @@
           "recommended_control": "Allow with logging, or deny network and add a domain allowlist if the destination set is not stable."
         },
         "payload_hash": "bbdaff478d0cee28062be4eac5d36b031ca74492b0861e11454bbb638a33d45a",
-        "previous_hash": "b75f2d193c8c2e9066e8c52510d34be95a8d526a33efb8bbe8e2fb11ff9293f2",
-        "hash": "9e60d6eb43f6b43643a84b2b3afc3a1beca70ccaadfb44fead099903217e872f"
+        "previous_hash": "4730b5a5929593327ecdf4404f884ff9e7267c1bc7d2011f8097dd3a0f55e688",
+        "hash": "b0eb74ea2edce88c719ad912d4f42ec2f830cd00408a2c5dd2b37f8dae8613e0"
       },
       {
         "seq": 21,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11573,12 +11574,12 @@
           "recommended_control": "Inspect the entrypoint before granting unrestricted execution. Prefer SANDBOX_ONLY while the program is unreviewed."
         },
         "payload_hash": "c8f099a18a69a97f51c19189134c38501481cd00b89f44b8add781578f63d7d0",
-        "previous_hash": "9e60d6eb43f6b43643a84b2b3afc3a1beca70ccaadfb44fead099903217e872f",
-        "hash": "8f04cd7dc1e5ba02f44a81c36a1a0deb620b51c303f5ecc6472a63ac168fa6b7"
+        "previous_hash": "b0eb74ea2edce88c719ad912d4f42ec2f830cd00408a2c5dd2b37f8dae8613e0",
+        "hash": "ab692568671eb58dae661c23a7ba04d241156f761f72c09cd54f842499e350a9"
       },
       {
         "seq": 22,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11594,12 +11595,12 @@
           "recommended_control": "Review the entrypoint, then allow. Keep the surrounding policy (filesystem, network, credentials) in force — the program inherits it."
         },
         "payload_hash": "144c4c7ac0eee1e3b82d1d42cc74c17b37c12edddf594b5445fba5c8e8f63a97",
-        "previous_hash": "8f04cd7dc1e5ba02f44a81c36a1a0deb620b51c303f5ecc6472a63ac168fa6b7",
-        "hash": "fe417e85f6464988a9eb2ec96777b6b3003ac9373f3af5f3f01c595f06b3a99b"
+        "previous_hash": "ab692568671eb58dae661c23a7ba04d241156f761f72c09cd54f842499e350a9",
+        "hash": "9cb906330fa11b6fb04ff88d8c5c24cb9e579a6308954cfd2dcc08dbb663dde3"
       },
       {
         "seq": 23,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11615,12 +11616,12 @@
           "recommended_control": "Inspect the entrypoint before granting unrestricted execution. Prefer SANDBOX_ONLY while the program is unreviewed."
         },
         "payload_hash": "2cba2e6b28daab55ce7e93089b21e146d00a8b3de4f33025943e46318bc3cab2",
-        "previous_hash": "fe417e85f6464988a9eb2ec96777b6b3003ac9373f3af5f3f01c595f06b3a99b",
-        "hash": "2b504ad926c90a9379f1dbccd28dcadc4bbedc9dab02fb99c3b52ad966fd51b6"
+        "previous_hash": "9cb906330fa11b6fb04ff88d8c5c24cb9e579a6308954cfd2dcc08dbb663dde3",
+        "hash": "97684d924bcdcaf64399332c9fb5a0e5192217378d7dfc5569fe89aad46c0771"
       },
       {
         "seq": 24,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11636,12 +11637,12 @@
           "recommended_control": "Require approval. Prefer a committed lockfile, install with lifecycle scripts disabled where possible, and pin versions."
         },
         "payload_hash": "e05065e521a2aa2d05312d9bd20a7166159f0d562efc1b97881c3a1e711d5bca",
-        "previous_hash": "2b504ad926c90a9379f1dbccd28dcadc4bbedc9dab02fb99c3b52ad966fd51b6",
-        "hash": "94775b9820280812b64786ededda58bdf3a3a4f00325dfd632f4f005cab4cea3"
+        "previous_hash": "97684d924bcdcaf64399332c9fb5a0e5192217378d7dfc5569fe89aad46c0771",
+        "hash": "ac42c54bdc9760b33ce967cfec8e1ae1bffb921f64a527f0efad083825a111ce"
       },
       {
         "seq": 25,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11657,12 +11658,12 @@
           "recommended_control": "Review the entrypoint, then allow. Keep the surrounding policy (filesystem, network, credentials) in force — the program inherits it."
         },
         "payload_hash": "144c4c7ac0eee1e3b82d1d42cc74c17b37c12edddf594b5445fba5c8e8f63a97",
-        "previous_hash": "94775b9820280812b64786ededda58bdf3a3a4f00325dfd632f4f005cab4cea3",
-        "hash": "432a16cc7c640b6760a0def50eb4a0d75ed85bc28e9f3b27875a687aface5bbf"
+        "previous_hash": "ac42c54bdc9760b33ce967cfec8e1ae1bffb921f64a527f0efad083825a111ce",
+        "hash": "ec958529d584262947d3fadfb9cc1b85bde74e00c3ed411f820bc5b6dbf748c1"
       },
       {
         "seq": 26,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11678,12 +11679,12 @@
           "recommended_control": "Inspect the entrypoint before granting unrestricted execution. Prefer SANDBOX_ONLY while the program is unreviewed."
         },
         "payload_hash": "2f21287e4cdecd805aed71b09d37e1e95b94e2ce838a9ccecf5f78d61fd897c2",
-        "previous_hash": "432a16cc7c640b6760a0def50eb4a0d75ed85bc28e9f3b27875a687aface5bbf",
-        "hash": "b3c8e9db9b13c73b8cd332d76bda77b77631725274ca79b4a7fb71998d259587"
+        "previous_hash": "ec958529d584262947d3fadfb9cc1b85bde74e00c3ed411f820bc5b6dbf748c1",
+        "hash": "09bc4528d9af08ec7fe8b20355acef870e26f118a98468d6424d17765b765d60"
       },
       {
         "seq": 27,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11699,12 +11700,12 @@
           "recommended_control": "Require approval. Prefer a committed lockfile, install with lifecycle scripts disabled where possible, and pin versions."
         },
         "payload_hash": "d7a2e373fb83667b63d3ae93719393d49352bb7c237b3db0c908399f19650c33",
-        "previous_hash": "b3c8e9db9b13c73b8cd332d76bda77b77631725274ca79b4a7fb71998d259587",
-        "hash": "f72dd777c777658e2eccff34c223465f51858b19100c0c404edc70a3102ec6fb"
+        "previous_hash": "09bc4528d9af08ec7fe8b20355acef870e26f118a98468d6424d17765b765d60",
+        "hash": "7e58380601bbc485c14068a5c68fdd805e2222c686b023ff0962a470ec2c1835"
       },
       {
         "seq": 28,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11720,12 +11721,12 @@
           "recommended_control": "Inspect the entrypoint before granting unrestricted execution. Prefer SANDBOX_ONLY while the program is unreviewed."
         },
         "payload_hash": "2f21287e4cdecd805aed71b09d37e1e95b94e2ce838a9ccecf5f78d61fd897c2",
-        "previous_hash": "f72dd777c777658e2eccff34c223465f51858b19100c0c404edc70a3102ec6fb",
-        "hash": "5f225d4d68679e5158b219eeaabbb51be6e1e1a75c3654b733c62ccc57596906"
+        "previous_hash": "7e58380601bbc485c14068a5c68fdd805e2222c686b023ff0962a470ec2c1835",
+        "hash": "090b2044af91a7ee9844aa6ac345c0b9f5f1bdd897093ea967c986515d945426"
       },
       {
         "seq": 29,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11741,12 +11742,12 @@
           "recommended_control": "Pin to an immutable commit SHA and vendor the artifact, or move the package into the registry with provenance."
         },
         "payload_hash": "4695976be08b5a574484ddf59389e47a9e9fb4d0a1b050260ad3a93bb8b239ad",
-        "previous_hash": "5f225d4d68679e5158b219eeaabbb51be6e1e1a75c3654b733c62ccc57596906",
-        "hash": "0dfa2a0f720a653f7e4d052a884333f254f49331316f38bd64d09e7d986aa21a"
+        "previous_hash": "090b2044af91a7ee9844aa6ac345c0b9f5f1bdd897093ea967c986515d945426",
+        "hash": "a4e2d3227294f2f3e6e224663e1672ba1707b871d2567d54a033a6355d32266d"
       },
       {
         "seq": 30,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11762,12 +11763,12 @@
           "recommended_control": "Commit a lockfile and install from it."
         },
         "payload_hash": "f35be11e2714599088e27fb1df941bc79613f2cb38da20fffd29efdd5646c45b",
-        "previous_hash": "0dfa2a0f720a653f7e4d052a884333f254f49331316f38bd64d09e7d986aa21a",
-        "hash": "e69861ee903d40c053856253ade253c951011ad02c414f8711ee0e904d0446d7"
+        "previous_hash": "a4e2d3227294f2f3e6e224663e1672ba1707b871d2567d54a033a6355d32266d",
+        "hash": "8f3872c1157c9f87fe5ef0bd258debb6b38fa56a86260fefcda90fdf8911dbf6"
       },
       {
         "seq": 31,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11783,12 +11784,12 @@
           "recommended_control": "Require approval. Install with lifecycle scripts disabled when the dependency set allows it, and review the hook body."
         },
         "payload_hash": "891ba7ae4fc1e2d10fae8fe079eac9a117e1b5fd72fedc4fe20fe3de35b5693d",
-        "previous_hash": "e69861ee903d40c053856253ade253c951011ad02c414f8711ee0e904d0446d7",
-        "hash": "d6b90d72c07a285c0cf138ec95860fce7cfa2d1e2c1b616a756096d272cd63a3"
+        "previous_hash": "8f3872c1157c9f87fe5ef0bd258debb6b38fa56a86260fefcda90fdf8911dbf6",
+        "hash": "2284b93e87bc75a8d799c58fb65b602db371520521022ffaa0d7d96e6f0ed351"
       },
       {
         "seq": 32,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11804,12 +11805,12 @@
           "recommended_control": "Pin to a commit SHA, or publish the package to a registry with hashes."
         },
         "payload_hash": "21d5ceceacab6c4a58b19efb95229aafc2badbe76950e09083e75e1aacd40ce3",
-        "previous_hash": "d6b90d72c07a285c0cf138ec95860fce7cfa2d1e2c1b616a756096d272cd63a3",
-        "hash": "3d58241ddb2115b090b4b9bd46d9a948cf5adc1c2c9d51c1a653cb1f9c28f5ed"
+        "previous_hash": "2284b93e87bc75a8d799c58fb65b602db371520521022ffaa0d7d96e6f0ed351",
+        "hash": "9c115cbf2a8768c6bdea05d380d4ab6ae5d73fdfc431ae0085dc034ef723c3a6"
       },
       {
         "seq": 33,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11825,12 +11826,12 @@
           "recommended_control": "Pin exact versions and use a lockfile or hashes."
         },
         "payload_hash": "4ca7d6fd8881540673c67404f409778603be434bf45df75601b3768f1504d1c1",
-        "previous_hash": "3d58241ddb2115b090b4b9bd46d9a948cf5adc1c2c9d51c1a653cb1f9c28f5ed",
-        "hash": "8dbaf7f790f9e4b19933e59f38722bb7ea20e232bb3b9137a6b5704ee858b83e"
+        "previous_hash": "9c115cbf2a8768c6bdea05d380d4ab6ae5d73fdfc431ae0085dc034ef723c3a6",
+        "hash": "28ed4f7571de39be1f79e5dcff97860e345318f45982b43bf1fea07049d3b217"
       },
       {
         "seq": 34,
-        "timestamp": "2026-09-16T06:38:04.683Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11846,12 +11847,12 @@
           "recommended_control": "Download, verify a checksum, then execute."
         },
         "payload_hash": "29462b2c13d2c41139b02e1236dd28eed1417eed861a4693bf1ae0819f2e1c31",
-        "previous_hash": "8dbaf7f790f9e4b19933e59f38722bb7ea20e232bb3b9137a6b5704ee858b83e",
-        "hash": "59ad040fbf0fb398b58b6402690960b9b51463a45974fe795af59ba196c30126"
+        "previous_hash": "28ed4f7571de39be1f79e5dcff97860e345318f45982b43bf1fea07049d3b217",
+        "hash": "bb443c68c51cc77a39e33f1fd4f4625be0cb566f0410d05d9dfbc7473d6af299"
       },
       {
         "seq": 35,
-        "timestamp": "2026-09-16T06:38:04.684Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11867,12 +11868,12 @@
           "recommended_control": "Add a non-root USER and drop capabilities."
         },
         "payload_hash": "2507f0b35f7140ecec1cda8dcddd9d92a9919042f635a5e17bd5d6c9d03f1996",
-        "previous_hash": "59ad040fbf0fb398b58b6402690960b9b51463a45974fe795af59ba196c30126",
-        "hash": "8a8bbfc5ca2d06fe27567a8f1e3c025cfe0706528f083832394d00feb35d923e"
+        "previous_hash": "bb443c68c51cc77a39e33f1fd4f4625be0cb566f0410d05d9dfbc7473d6af299",
+        "hash": "96f71e3c76327ed076bfcaba2b3aea356bea91a4a6b4a343f5af1d8d2b188bbd"
       },
       {
         "seq": 36,
-        "timestamp": "2026-09-16T06:38:04.684Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11888,12 +11889,12 @@
           "recommended_control": "Pin each action to a full commit SHA and enable Dependabot for updates."
         },
         "payload_hash": "c3fce3afaa7877ffcad058976fc44dafd0f2873452c994149d3844ff91e3d724",
-        "previous_hash": "8a8bbfc5ca2d06fe27567a8f1e3c025cfe0706528f083832394d00feb35d923e",
-        "hash": "3f0e18274ad79effef770728788bdbe17ec4b28fee12569888e75a33278e171a"
+        "previous_hash": "96f71e3c76327ed076bfcaba2b3aea356bea91a4a6b4a343f5af1d8d2b188bbd",
+        "hash": "2aed87a745c4f702d6de1a9b86e9b57c9592f9aaa63b2683f25c67be057d12e9"
       },
       {
         "seq": 37,
-        "timestamp": "2026-09-16T06:38:04.684Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "ACTION_DETECTED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11909,12 +11910,12 @@
           "recommended_control": "Keep untrusted content away from the reasoning step that produces commands, or require approval on every execution that follows a read of untrusted content. Sandbox the execution."
         },
         "payload_hash": "3e624ffc26bcf0b991c4338702bfa8c9f294f983f76270bee49daf348d8c3d19",
-        "previous_hash": "3f0e18274ad79effef770728788bdbe17ec4b28fee12569888e75a33278e171a",
-        "hash": "f04d6079e71befa48a14fa84533c6ec399c3c44f6d3fd6d8caacac63a16655fc"
+        "previous_hash": "2aed87a745c4f702d6de1a9b86e9b57c9592f9aaa63b2683f25c67be057d12e9",
+        "hash": "d37db1b990f026df71f24b0d355ff9ae5a6f719d7e55207c3a268d10ed915fde"
       },
       {
         "seq": 38,
-        "timestamp": "2026-09-16T06:38:04.684Z",
+        "timestamp": "2026-01-01T00:00:00.000Z",
         "type": "INSPECTION_COMPLETED",
         "workspace_id": "workspace_local",
         "agent_id": "autoclaw",
@@ -11926,8 +11927,8 @@
           "confidence": 82
         },
         "payload_hash": "b19ef8e65d3e6fc59be0685d7805386b96819777acc12b0b600638d05645e47b",
-        "previous_hash": "f04d6079e71befa48a14fa84533c6ec399c3c44f6d3fd6d8caacac63a16655fc",
-        "hash": "e25b644628c2ab4e47cbb7c1080532b971d67d23fb04b98087b0fa1650ab19a4"
+        "previous_hash": "d37db1b990f026df71f24b0d355ff9ae5a6f719d7e55207c3a268d10ed915fde",
+        "hash": "8a83b2e13890b5c0198941f8661ef11a685ae7c96182e1dc90066cab1aba4b7e"
       }
     ]
   },

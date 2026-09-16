@@ -154,12 +154,16 @@ for (const cmd of COMMANDS) {
   check('  same audit ledger (hash chain)', sameAudit);
 }
 
-/* 4. Fixture inspection through the bundle */
+/* 4. Fixture report sanity + reproducibility */
 const fixtureJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'dist', 'fixture-report.json'), 'utf8'));
 console.log('  fixture report sanity:');
 check('fixture report has findings', fixtureJson.stats.findings > 0);
 check('fixture report audit chain intact', fixtureJson.auditVerification.valid === true);
 check('fixture report states no execution', /no uploaded or referenced code was executed/i.test(fixtureJson.meta.executionDisclaimer));
+check('fixture report is byte-reproducible (fixed clock)',
+  Boolean(fixtureJson.meta.deterministicClock)
+  && fixtureJson.audit.events.every((e) => e.timestamp === fixtureJson.audit.events[0].timestamp),
+  'audit timestamps differ, so every build would change dist/');
 
 const bundledFixture = bundleEngine.inspectProject({
   sources: [{ path: 'package.json', content: '{"dependencies":{"a":"latest"},"scripts":{"postinstall":"node x.js"}}' }],
